@@ -5,7 +5,7 @@ require('dotenv').config();
 const AWS = require('aws-sdk');
 
 const SESConfig = {
-  region: process.env.REGION,
+  region: process.env.AWS_SES_REGION,
   accessKeyId: process.env.AWS_SES_ACCESS_KEY_ID,
   secretAccessKey: process.env.AWS_SES_SECRET_ACCESS_KEY,
   apiVersion: '2010-12-01'
@@ -43,6 +43,7 @@ var params = {
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
+  console.log("config: ", SESConfig);
   new AWS.SES(SESConfig).sendEmail(params).promise();
 
   res.send('Hello World!');
